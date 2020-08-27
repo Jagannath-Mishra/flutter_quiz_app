@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/answer.dart';
 import 'package:flutter_app/question.dart';
+import 'package:flutter_app/quiz.dart';
+import 'package:flutter_app/result.dart';
 
 /*void main(){
  runApp(MyApp());
@@ -19,7 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyStateApp extends State<MyApp> {
   var _questionIndex = 0;
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'what\'s your fav color ?',
       'answers': ['Green', 'Red', 'White', 'Black'],
@@ -35,13 +37,9 @@ class _MyStateApp extends State<MyApp> {
   ];
 
   void _answarClicked() {
-
     setState(() {
-
-        _questionIndex++;
-        print("Selected question " + _questionIndex.toString());
-
-
+      _questionIndex++;
+      print("Selected question " + _questionIndex.toString());
     });
   }
 
@@ -52,16 +50,9 @@ class _MyStateApp extends State<MyApp> {
         appBar: AppBar(
           title: Text('Quiz App'),
         ),
-        body: _questionIndex < questions.length? Column(
-          children: [
-            Question(
-              questions[_questionIndex]['questionText'],
-            ),
-           ...(questions[_questionIndex]['answers'] as List<String>).map((answer){
-            return Answer(_answarClicked, answer);
-            }).toList()
-          ],
-        ): Center(child: Text('You Did IT!!'),),
+        body: _questionIndex < _questions.length
+            ? Quiz(_answarClicked, _questions, _questionIndex)
+            : Result(),
       ),
     );
   }

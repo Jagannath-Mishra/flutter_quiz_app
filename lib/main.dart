@@ -11,23 +11,23 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyStateApp();
+    return _MyStateApp();
   }
 }
 
-class MyStateApp extends State<MyApp> {
-  var questionIndex = 0;
-  var questions = [
+class _MyStateApp extends State<MyApp> {
+  var _questionIndex = 0;
+  var _questions = [
     "what's your fav color ?",
     "What's your fab sports ?",
     "What's your first job?"
   ];
 
-  void answarClicked() {
+  void _answarClicked() {
     setState(() {
-      if (questionIndex < 3) {
-        questionIndex++;
-        print("Selected question " + questionIndex.toString());
+      if (_questionIndex < 3) {
+        _questionIndex++;
+        print("Selected question " + _questionIndex.toString());
       } else {
         print('We are out of questions!');
       }
@@ -43,18 +43,18 @@ class MyStateApp extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions.elementAt(questionIndex)),
+            Text(_questions.elementAt(_questionIndex)),
             RaisedButton(
               child: Text('Answar-1'),
-              onPressed: answarClicked,
+              onPressed: _answarClicked,
             ),
             RaisedButton(
               child: Text('Answar-2'),
-              onPressed: answarClicked,
+              onPressed: _answarClicked,
             ),
             RaisedButton(
               child: Text('Answar-3'),
-              onPressed: answarClicked,
+              onPressed: _answarClicked,
             ),
           ],
         ),

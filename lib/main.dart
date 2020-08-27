@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/answer.dart';
 import 'package:flutter_app/question.dart';
+import 'package:flutter_app/quiz.dart';
+import 'package:flutter_app/result.dart';
 
 /*void main(){
  runApp(MyApp());
@@ -18,20 +21,25 @@ class MyApp extends StatefulWidget {
 
 class _MyStateApp extends State<MyApp> {
   var _questionIndex = 0;
-  var questions = [
-    "what's your fav color ?",
-    "What's your fab sports ?",
-    "What's your first job?"
+  final _questions = const [
+    {
+      'questionText': 'what\'s your fav color ?',
+      'answers': ['Green', 'Red', 'White', 'Black'],
+    },
+    {
+      'questionText': 'What\'s your fab sports ?',
+      'answers': ['Cricket', 'Football', 'Tennis', 'Carrom'],
+    },
+    {
+      'questionText': 'What\'s your first job?',
+      'answers': ['TCS', 'Wipro', 'Infosis', 'Legato'],
+    },
   ];
 
   void _answarClicked() {
     setState(() {
-      if (_questionIndex < 3) {
-        _questionIndex++;
-        print("Selected question " + _questionIndex.toString());
-      } else {
-        print('We are out of questions!');
-      }
+      _questionIndex++;
+      print("Selected question " + _questionIndex.toString());
     });
   }
 
@@ -42,25 +50,9 @@ class _MyStateApp extends State<MyApp> {
         appBar: AppBar(
           title: Text('Quiz App'),
         ),
-        body: Column(
-          children: [
-            Question(
-              questions[_questionIndex],
-            ),
-            RaisedButton(
-              child: Text('Answar-1'),
-              onPressed: _answarClicked,
-            ),
-            RaisedButton(
-              child: Text('Answar-2'),
-              onPressed: _answarClicked,
-            ),
-            RaisedButton(
-              child: Text('Answar-3'),
-              onPressed: _answarClicked,
-            ),
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(_answarClicked, _questions, _questionIndex)
+            : Result(),
       ),
     );
   }
